@@ -27,6 +27,12 @@ public:
 	*/
 	void Assign(char* otherString);
 	/*
+	This method Assign a new string
+	agruments: string to Assign
+	return: void
+	*/
+	void Assign(MyString& otherString);
+	/*
 	This method return a char in the given index in string 
 	agruments: int index
 	return: char in index
@@ -39,11 +45,23 @@ public:
 	*/
 	void Append(char* otherString);
 	/*
+	This method append a new string to the existing string
+	agruments: string to append
+	return: void
+	*/
+	void Append(MyString& otherString);
+	/*
 	This method Compare between 2 strings
 	agruments: string to Compare with
 	return: 0 if equal, -1 if there not same size
 	*/
 	int Compare(char* otherString);
+	/*
+	This method Compare between 2 strings
+	agruments: string to Compare with
+	return: 0 if equal, -1 if there not same size
+	*/
+	int Compare(MyString& otherString);
 	/*
 	This method check if the string is empty
 	agruments: none

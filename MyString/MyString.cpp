@@ -46,6 +46,38 @@ void MyString::Append(char* myString)
 	}
 }
 
+void MyString::Append(MyString& myString)
+{
+	if (&myString && myString.m_string[myString.GetLength()] == '\0')
+	{
+		int myStringSize = 0;
+		int tmpStringSize = 0;
+		char* tmpString = new char[m_size];
+
+		// copy the string to temp 
+		strncpy_s(tmpString, m_size, m_string, m_size);
+		delete m_string;
+		// resize the string
+		m_string = new char[strlen(tmpString) + myString.GetLength() + 2];
+		// return the original value
+		strncpy_s(m_string, strlen(tmpString) + 1, tmpString, strlen(tmpString) + 1);
+		m_string[strlen(tmpString)] = '\0';
+
+		myStringSize = myString.GetLength();
+		tmpStringSize = strlen(tmpString);
+		// append the new value
+		strncat_s(m_string, myStringSize + tmpStringSize + 1, myString.m_string, myStringSize + tmpStringSize + 1);
+		m_size = strlen(m_string) + 1;
+		m_string[m_size] = '\0';
+		// free temp memory
+		delete tmpString;
+	}
+	else
+	{
+		throw exception("string not valid! must end with null terminator");
+	}
+}
+
 size_t MyString::GetLength()
 {
 	return strlen(m_string);
@@ -71,6 +103,33 @@ void MyString::Assign(char* myString)
 			// copy new value
 			strncpy_s(m_string, m_size, myString, m_size);
 		}		
+	}
+	else
+	{
+		throw exception("string not valid! must end with null terminator");
+	}
+}
+
+void MyString::Assign(MyString& myString)
+{
+	if (&myString && myString.m_string[myString.GetLength()] == '\0')
+	{
+		// if there no need to allocate new memory
+		if (myString.GetLength() < m_size)
+		{
+			// copy the new value and append null terminator
+			strncpy_s(m_string, myString.GetLength(), myString.m_string, myString.GetLength());
+			m_string[myString.GetLength() - 1] = '\0';
+		}
+		else
+		{
+			// free old memory and allocate new one
+			delete m_string;
+			m_size = myString.GetLength() + 1;
+			m_string = new char[m_size];
+			// copy new value
+			strncpy_s(m_string, m_size, myString.m_string, m_size);
+		}
 	}
 	else
 	{
@@ -114,6 +173,27 @@ int MyString::Compare(char* myString)
 	return res;
 }
 
+int MyString::Compare(MyString& myString)
+{
+	int res = 0;
+	if (&myString && myString.m_string[myString.GetLength()] == '\0')
+	{
+		if (myString.GetLength() != strlen(m_string))
+		{
+			res = -1;
+		}
+		else
+		{
+			res = strncmp(m_string, myString.m_string, strlen(m_string));
+		}
+	}
+	else
+	{
+		throw exception("string not valid! must end with null terminator");
+	}
+	return res;
+}
+
 bool MyString::IsEmpty()
 {
 	return NULL == m_string;
@@ -142,6 +222,8 @@ void main(void)
 		myString.print();
 		myString.Append(", my last name is Bloch");
 		myString.print();
+		MyString myString2;
+		
 		char c = myString.CharAt(1);
 		cout << "the first char is: " << c << "\n";
 		if (myString.Compare("my name is Moshe") == 0)
@@ -162,6 +244,12 @@ void main(void)
 		}
 		int l = myString.GetLength();
 		cout << "the length of my string is: " << to_string(l) << "\n";
+
+		myString2.Assign(myString);
+		myString2.Append(myString);
+		cout << "assign and append the same string using oveload method:\n";
+		myString2.print();
+
 		myString.Clear();
 
 		if (myString.IsEmpty())
