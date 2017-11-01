@@ -78,7 +78,7 @@ void MyString::Append(MyString& myString)
 	}
 }
 
-size_t MyString::GetLength()
+size_t MyString::GetLength() const
 {
 	return strlen(m_string);
 }
@@ -137,7 +137,7 @@ void MyString::Assign(MyString& myString)
 	}
 }
 
-char MyString::CharAt(size_t index)
+char MyString::CharAt(const size_t index) const
 {
 	char res = '\0';
 	// check valid index
@@ -152,7 +152,7 @@ char MyString::CharAt(size_t index)
 	return res;
 }
 
-int MyString::Compare(char* myString)
+int MyString::Compare(const char* myString)
 {
 	int res = 0;
 	if (myString && myString[strlen(myString)] == '\0')
@@ -173,7 +173,7 @@ int MyString::Compare(char* myString)
 	return res;
 }
 
-int MyString::Compare(MyString& myString)
+int MyString::Compare(const MyString& myString)
 {
 	int res = 0;
 	if (&myString && myString.m_string[myString.GetLength()] == '\0')
@@ -207,7 +207,7 @@ void MyString::Clear()
 	m_size = 1;
 }
 
-void MyString::print()
+void MyString::print() const
 {
 	cout << m_string << endl;
 }

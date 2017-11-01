@@ -19,7 +19,7 @@ public:
 	agruments: int index
 	return: int length
 	*/
-	size_t GetLength();
+	size_t GetLength() const;
 	/*
 	This method Assign a new string
 	agruments: string to Assign
@@ -37,7 +37,7 @@ public:
 	agruments: int index
 	return: char in index
 	*/
-	char CharAt(size_t index);
+	char CharAt(const size_t index) const;
 	/*
 	 This method append a new string to the existing string
 	 agruments: string to append
@@ -55,13 +55,13 @@ public:
 	agruments: string to Compare with
 	return: 0 if equal, -1 if there not same size
 	*/
-	int Compare(char* otherString);
+	int Compare(const char* otherString);
 	/*
 	This method Compare between 2 strings
 	agruments: string to Compare with
 	return: 0 if equal, -1 if there not same size
 	*/
-	int Compare(MyString& otherString);
+	int Compare(const MyString& otherString);
 	/*
 	This method check if the string is empty
 	agruments: none
@@ -79,7 +79,7 @@ public:
 	agruments: none
 	return: void
 	*/
-	void print();
+	void print() const;
 
 private:
 	/*
