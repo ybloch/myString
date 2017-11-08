@@ -11,6 +11,10 @@ public:
 	*/
 	 MyString();
 	 /*
+	 copy c-tor init char array pointer and size
+	 */
+	 MyString(MyString& myString);
+	 /*
 	 d-tor delete char array pointer
 	 */
 	~ MyString();

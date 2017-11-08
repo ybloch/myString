@@ -4,7 +4,6 @@
 
 using namespace std;
 
-
 MyString::MyString():m_size(1), m_string('\0')
 {
 }
@@ -12,6 +11,14 @@ MyString::MyString():m_size(1), m_string('\0')
 MyString::~MyString()
 {
 	delete m_string;
+}
+
+MyString::MyString(MyString& myString) : m_size(myString.m_size)
+{
+	size_t tmpSize = myString.m_size;
+	m_string = new char[tmpSize + 1];
+	strncpy_s(m_string, tmpSize + 1, myString.m_string, tmpSize + 1);
+
 }
 
 void MyString::Append(char* myString)
